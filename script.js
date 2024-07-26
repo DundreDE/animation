@@ -1,21 +1,21 @@
-document.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('.section');
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const scrollTop = window.scrollY;
-        const windowHeight = window.innerHeight;
+document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+        root: null, // Use the viewport as the container
+        rootMargin: '0px',
+        threshold: 0.1 // Trigger when 10% of the element is in view
+    };
 
-        const inView = scrollTop + windowHeight > sectionTop && scrollTop < sectionTop + sectionHeight;
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+            } else {
+                entry.target.classList.remove('in-view');
+            }
+        });
+    }, observerOptions);
 
-        if (inView) {
-            section.querySelectorAll('.animate-text').forEach(text => {
-                text.classList.add('in-view');
-            });
-        } else {
-            section.querySelectorAll('.animate-text').forEach(text => {
-                text.classList.remove('in-view');
-            });
-        }
+    document.querySelectorAll('.animate-text').forEach(text => {
+        observer.observe(text);
     });
 });
