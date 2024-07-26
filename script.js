@@ -1,21 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const textElement = document.getElementById('animated-text');
+    const text = textElement.innerText;
+    
+    // Buchstaben in span-Elemente aufteilen
+    textElement.innerHTML = text.split('').map(letter => `<span>${letter}</span>`).join('');
+    
     const observerOptions = {
-        root: null, // Use the viewport as the container
+        root: null,
         rootMargin: '0px',
-        threshold: 0.1 // Trigger when 10% of the element is in view
+        threshold: 0.1
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
+                document.querySelector('.text-container').classList.add('in-view');
             } else {
-                entry.target.classList.remove('in-view');
+                document.querySelector('.text-container').classList.remove('in-view');
             }
         });
     }, observerOptions);
 
-    document.querySelectorAll('.animate-text').forEach(text => {
-        observer.observe(text);
-    });
+    observer.observe(textElement);
 });
