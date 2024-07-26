@@ -23,23 +23,48 @@ body, html {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    width: 80%;
+    position: relative;
 }
 
 h1 {
     display: flex;
+    flex-wrap: wrap;
     font-size: 3rem;
     line-height: 1.2;
     margin: 0;
+    position: relative;
 }
 
 h1 span {
     display: inline-block;
     opacity: 0;
-    transform: translateY(50px);
+    position: relative;
     transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .in-view span {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) translateX(0);
+}
+
+@keyframes fromTop {
+    0% { transform: translateY(-100px); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes fromBottom {
+    0% { transform: translateY(100px); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes fromLeft {
+    0% { transform: translateX(-100px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes fromRight {
+    0% { transform: translateX(100px); }
+    100% { transform: translateX(0); }
 }
